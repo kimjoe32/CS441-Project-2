@@ -12,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *boardImage;
 @property (strong, nonatomic) IBOutlet UIImageView *gameOverView;
 @property (strong, nonatomic) IBOutlet UIButton *RestartButton;
+@property (strong, nonatomic) IBOutlet UILabel *score;
 
 @property (strong, nonatomic) IBOutlet UIImageView *view11;
 @property (strong, nonatomic) IBOutlet UIImageView *view12;

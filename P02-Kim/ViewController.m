@@ -13,6 +13,9 @@
 //note to self pastel brown = 836953
 @implementation ViewController
 - (void)viewDidLoad {
+    //set background image
+    
+
     //load the grid/board of the game
     NSArray *imageNames = @[@"red.png", @"orange.png", @"yellow.png", @"green.png",
                             @"blue.png", @"light_blue.png", @"purple.png"];
