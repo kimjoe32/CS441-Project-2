@@ -12,10 +12,15 @@
 
 //note to self pastel brown = 836953
 @implementation ViewController
+NSInteger HighScore;
 - (void)viewDidLoad {
-    //set background image
     
-
+    [super viewDidLoad];
+    HighScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScoreSaved"];
+    _score.adjustsFontSizeToFitWidth = YES;
+    _highScore.adjustsFontSizeToFitWidth = YES;
+    [_highScore setText:[NSString stringWithFormat:@"%lu", HighScore]];
+    
     //load the grid/board of the game
     NSArray *imageNames = @[@"red.png", @"orange.png", @"yellow.png", @"green.png",
                             @"blue.png", @"light_blue.png", @"purple.png"];
@@ -38,13 +43,23 @@
 
 //makes a 2 square at the location of img
 - (void) make2or4:(UIImageView*) img secondArg:(int*) numOfAddedSqrs{
+    [UIView animateWithDuration:.75
+                     animations:^{
+                         img.alpha=1;
+                     }];
     int i = (arc4random() %5);
-    if (i>0)
+    if (i>0){
         [img setImage:[UIImage imageNamed:@"2.png"]];
-    else
+    }
+    else{
         [img setImage:[UIImage imageNamed:@"4.png"]];
+    }
     
-    img.alpha=1;
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         img.alpha=1;
+                     }];
+    //img.alpha=1;
     (*numOfAddedSqrs)--;
 }
 
@@ -139,60 +154,127 @@
 }
 
 - (void) incrementImage:(UIImageView*) imageViewToChange {
-    
+    unsigned long currentScore = _score.text.integerValue;
     UIImage *image = [UIImage imageNamed:@"2.png"];
+    
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"4.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 4]];
+        if (currentScore + 4 > HighScore) {
+            HighScore = currentScore + 4;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 4]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"4.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"8.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 8]];
+        if (currentScore + 8 > HighScore) {
+            HighScore = currentScore + 8;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 8]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"8.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"16.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 16]];
+        if (currentScore + 16 > HighScore) {
+            HighScore = currentScore + 16;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 16]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"16.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"32.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 32]];
+        if (currentScore + 32 > HighScore) {
+            HighScore = currentScore + 32;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 32]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"32.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"64.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 64]];
+        if (currentScore + 64 > HighScore) {
+            HighScore = currentScore + 64;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 64]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"64.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"128.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 128]];
+        if (currentScore + 128 > HighScore) {
+            HighScore = currentScore + 128;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 128]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"128.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"256.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 256]];
+        if (currentScore + 256 > HighScore) {
+            HighScore = currentScore + 256;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 256]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"256.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"512.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 512]];
+        if (currentScore + 512 > HighScore) {
+            HighScore = currentScore + 512;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 512]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"512.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"1024.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 1024]];
+        if (currentScore + 1024 > HighScore) {
+            HighScore = currentScore + 1024;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 1024]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"1024.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"2048.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 2048]];
+        if (currentScore + 2048 > HighScore) {
+            HighScore = currentScore + 2048;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 2048]];
+        }
         return;
     }
     image = [UIImage imageNamed:@"2048.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"4096.png"];
+        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 4096]];
+        if (currentScore + 4096 > HighScore) {
+            HighScore = currentScore + 4096;
+            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 4096]];
+        }
         return;
     }
 }
@@ -200,12 +282,39 @@
 - (void) combineViewsAndIncrement:(UIImageView*) baseView otherView:(UIImageView*) changingView{
     [self incrementImage:baseView];
     changingView.alpha=0;
+//    NSLog(@"combineViewsAndIncrement");
+//    CGPoint returnLocation = changingView.center;
+//    [UIView animateWithDuration:.5
+//                     animations:^{
+//                         //_slidingView.alpha=0;
+//                         changingView.center = baseView.center;
+//                     } completion:^(BOOL finished){
+//                         if (finished) {
+//                             [self incrementImage:baseView];
+//                             changingView.alpha=0;
+//                             changingView.center = returnLocation;
+//                         }
+//                     }];
 }
 
 - (void) updateBaseView:(UIImageView*) baseView otherView:(UIImageView*) changingView{
     baseView.alpha = 1;
     baseView.image = changingView.image;
     changingView.alpha = 0;
+//    NSLog(@"updateBaseView");
+//    CGPoint returnLocation = changingView.center;
+//    [UIView animateWithDuration:.5
+//                     animations:^{
+//                         //_slidingView.alpha=0;
+//                         changingView.center = baseView.center;
+//                     } completion:^(BOOL finished){
+//                         if (finished) {
+//                             baseView.alpha = 1;
+//                             baseView.image = changingView.image;
+//                             changingView.alpha = 0;
+//                             changingView.center = returnLocation;
+//                         }
+//                     }];
 }
 
 - (BOOL) isEnabledandEqualTo:(UIImageView*) baseView otherView:(UIImageView*) changingView{
@@ -245,6 +354,9 @@
     _gameOverView.hidden=1;
     _RestartButton.hidden=1;
     _RestartButton.enabled=0;
+    
+    //set score to 0
+    [_score setText:[NSString stringWithFormat:@"%d", 0]];
     
     [self createRandomSquares];
 }
@@ -320,7 +432,7 @@
             return;
         
         //if we haven't returned by now, there are no more moves to be done - game over
-        [self performSelector:@selector(createResetDialog) withObject:nil afterDelay:.75];
+        [self performSelector:@selector(createResetDialog) withObject:nil afterDelay:1];
     }
 }
 
@@ -595,8 +707,10 @@
         }
     }
 
-    if(nothingHappened)
+    if(nothingHappened){
+        //[self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
         [self createRandomSquares];
+    }
     [self checkIfNoMoreMoves];
 }
 
@@ -739,7 +853,7 @@
         }
         else if (_view41.alpha == 1){
             nothingHappened=1;
-            [self updateBaseView:_view31 otherView:_view41];
+            [self updateBaseView:_view21 otherView:_view41];
         }
     }
     
@@ -762,7 +876,7 @@
         }
         else if (_view42.alpha == 1){
             nothingHappened=1;
-            [self updateBaseView:_view32 otherView:_view42];
+            [self updateBaseView:_view22 otherView:_view42];
         }
     }
     
@@ -785,7 +899,7 @@
         }
         else if (_view43.alpha == 1){
             nothingHappened=1;
-            [self updateBaseView:_view33 otherView:_view43];
+            [self updateBaseView:_view23 otherView:_view43];
         }
     }
     
@@ -808,7 +922,7 @@
         }
         else if (_view44.alpha == 1){
             nothingHappened=1;
-            [self updateBaseView:_view34 otherView:_view44];
+            [self updateBaseView:_view24 otherView:_view44];
         }
     }
     
@@ -823,7 +937,7 @@
         }
     }
     else {
-        if (_view21.alpha == 1){
+        if (_view41.alpha == 1){
             nothingHappened=1;
             [self updateBaseView:_view31 otherView:_view41];
         }
@@ -870,8 +984,11 @@
             [self updateBaseView:_view34 otherView:_view44];
         }
     }
-    if(nothingHappened)
+    if(nothingHappened){
+//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
         [self createRandomSquares];
+    }
+
     [self checkIfNoMoreMoves];
 }
 
@@ -1144,8 +1261,10 @@
             [self updateBaseView:_view24 otherView:_view14];
         }
     }
-    if(nothingHappened)
+    if(nothingHappened){
+//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
         [self createRandomSquares];
+    }
     [self checkIfNoMoreMoves];
 }
 
@@ -1420,8 +1539,10 @@
         }
     }
     
-    if(nothingHappened)
+    if(nothingHappened){
+//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
         [self createRandomSquares];
+    }
     [self checkIfNoMoreMoves];
 }
 

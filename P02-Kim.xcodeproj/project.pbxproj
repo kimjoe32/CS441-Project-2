@@ -11,6 +11,7 @@
 		6C7B9D981E4AA5BE009A9CFC /* Restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B9D971E4AA5BE009A9CFC /* Restart.png */; };
 		6C7B9D9A1E4BA257009A9CFC /* Scoreboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B9D991E4BA257009A9CFC /* Scoreboard.png */; };
 		6C7B9D9C1E4BC89A009A9CFC /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B9D9B1E4BC89A009A9CFC /* Background.png */; };
+		6C7B9D9E1E4C2110009A9CFC /* HighScoreboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B9D9D1E4C2110009A9CFC /* HighScoreboard.png */; };
 		6CB0D60F1E3C57DD006FAAC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0D60E1E3C57DD006FAAC8 /* main.m */; };
 		6CB0D6121E3C57DD006FAAC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0D6111E3C57DD006FAAC8 /* AppDelegate.m */; };
 		6CB0D6151E3C57DE006FAAC8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB0D6141E3C57DE006FAAC8 /* ViewController.m */; };
@@ -43,6 +44,7 @@
 		6C7B9D971E4AA5BE009A9CFC /* Restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Restart.png; sourceTree = "<group>"; };
 		6C7B9D991E4BA257009A9CFC /* Scoreboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scoreboard.png; sourceTree = "<group>"; };
 		6C7B9D9B1E4BC89A009A9CFC /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		6C7B9D9D1E4C2110009A9CFC /* HighScoreboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HighScoreboard.png; sourceTree = "<group>"; };
 		6CB0D60A1E3C57DD006FAAC8 /* P02-Kim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P02-Kim.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CB0D60E1E3C57DD006FAAC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6CB0D6101E3C57DD006FAAC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		6C7B9D961E4A9197009A9CFC /* UI Picture */ = {
 			isa = PBXGroup;
 			children = (
+				6C7B9D9D1E4C2110009A9CFC /* HighScoreboard.png */,
 				6C7B9D9B1E4BC89A009A9CFC /* Background.png */,
 				6C7B9D991E4BA257009A9CFC /* Scoreboard.png */,
 				6C7B9D971E4AA5BE009A9CFC /* Restart.png */,
@@ -236,6 +239,7 @@
 				6CD08D2D1E42A3E0005909DD /* 2.png in Resources */,
 				6CB0D6301E3C5FEF006FAAC8 /* green.png in Resources */,
 				6CD08D321E42A3E0005909DD /* 64.png in Resources */,
+				6C7B9D9E1E4C2110009A9CFC /* HighScoreboard.png in Resources */,
 				6CD08D371E42A3E0005909DD /* 2048.png in Resources */,
 				6CB0D61D1E3C57DE006FAAC8 /* LaunchScreen.storyboard in Resources */,
 				6C7B9D941E4A9158009A9CFC /* GameOverScreen.png in Resources */,
