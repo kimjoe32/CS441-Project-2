@@ -13,9 +13,11 @@
 //note to self pastel brown = 836953
 @implementation ViewController
 NSInteger HighScore;
+bool alreadyWon = NO;
+
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    //load highscore
     HighScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScoreSaved"];
     _score.adjustsFontSizeToFitWidth = YES;
     _highScore.adjustsFontSizeToFitWidth = YES;
@@ -43,23 +45,15 @@ NSInteger HighScore;
 
 //makes a 2 square at the location of img
 - (void) make2or4:(UIImageView*) img secondArg:(int*) numOfAddedSqrs{
-    [UIView animateWithDuration:.75
+    [UIView animateWithDuration:.5
                      animations:^{
                          img.alpha=1;
                      }];
     int i = (arc4random() %5);
-    if (i>0){
+    if (i>0)
         [img setImage:[UIImage imageNamed:@"2.png"]];
-    }
-    else{
+    else
         [img setImage:[UIImage imageNamed:@"4.png"]];
-    }
-    
-    [UIView animateWithDuration:.25
-                     animations:^{
-                         img.alpha=1;
-                     }];
-    //img.alpha=1;
     (*numOfAddedSqrs)--;
 }
 
@@ -152,173 +146,151 @@ NSInteger HighScore;
     
     return [data1 isEqual:data2];
 }
+- (void) increment:(int) inc updatescoreAndHighScore:(unsigned long*) currentScore{
+    [_score setText:[NSString stringWithFormat:@"%lu", *currentScore + inc]];
+    if (*currentScore + inc > HighScore) {
+        HighScore = *currentScore + 4;
+        [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
+        [_highScore setText:[NSString stringWithFormat:@"%lu", *currentScore + inc]];
+    }
+}
 
 - (void) incrementImage:(UIImageView*) imageViewToChange {
+    //change image and update score/highscore
     unsigned long currentScore = _score.text.integerValue;
     UIImage *image = [UIImage imageNamed:@"2.png"];
     
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"4.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 4]];
-        if (currentScore + 4 > HighScore) {
-            HighScore = currentScore + 4;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 4]];
-        }
+        [self increment:4 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"4.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"8.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 8]];
-        if (currentScore + 8 > HighScore) {
-            HighScore = currentScore + 8;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 8]];
-        }
+        [self increment:8 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"8.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"16.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 16]];
-        if (currentScore + 16 > HighScore) {
-            HighScore = currentScore + 16;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 16]];
-        }
+        [self increment:16 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"16.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"32.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 32]];
-        if (currentScore + 32 > HighScore) {
-            HighScore = currentScore + 32;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 32]];
-        }
+        [self increment:32 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"32.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"64.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 64]];
-        if (currentScore + 64 > HighScore) {
-            HighScore = currentScore + 64;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 64]];
-        }
+        [self increment:64 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"64.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"128.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 128]];
-        if (currentScore + 128 > HighScore) {
-            HighScore = currentScore + 128;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 128]];
-        }
+        [self increment:128 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"128.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"256.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 256]];
-        if (currentScore + 256 > HighScore) {
-            HighScore = currentScore + 256;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 256]];
-        }
+        [self increment:256 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"256.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"512.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 512]];
-        if (currentScore + 512 > HighScore) {
-            HighScore = currentScore + 512;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 512]];
-        }
+        [self increment:512 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"512.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"1024.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 1024]];
-        if (currentScore + 1024 > HighScore) {
-            HighScore = currentScore + 1024;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 1024]];
-        }
+        [self increment:1024 updatescoreAndHighScore:&currentScore];
         return;
     }
     image = [UIImage imageNamed:@"1024.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"2048.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 2048]];
-        if (currentScore + 2048 > HighScore) {
-            HighScore = currentScore + 2048;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 2048]];
+        [self increment:2048 updatescoreAndHighScore:&currentScore];
+        //show win popup only if they didn't get 2048 yet
+        if(!alreadyWon){
+            _winView.hidden=NO;
+            _continueButton.hidden=NO;
+            _continueButton.enabled = YES;
+            [self.view bringSubviewToFront:_winView];
+            [self.view bringSubviewToFront:_continueButton];
         }
+        else
+            alreadyWon = YES;
         return;
     }
     image = [UIImage imageNamed:@"2048.png"];
     if ([self image:imageViewToChange.image isEqualTo:image]) {
         imageViewToChange.image = [UIImage imageNamed:@"4096.png"];
-        [_score setText:[NSString stringWithFormat:@"%lu", currentScore + 4096]];
-        if (currentScore + 4096 > HighScore) {
-            HighScore = currentScore + 4096;
-            [[NSUserDefaults standardUserDefaults] setInteger:HighScore forKey:@"HighScoreSaved"];
-            [_highScore setText:[NSString stringWithFormat:@"%lu", currentScore + 4096]];
-        }
+        [self increment:4096 updatescoreAndHighScore:&currentScore];
         return;
     }
 }
 
 - (void) combineViewsAndIncrement:(UIImageView*) baseView otherView:(UIImageView*) changingView{
+//    [self incrementImage:baseView];
+//    changingView.alpha=0;
+    
+    changingView.alpha = 0;
     [self incrementImage:baseView];
-    changingView.alpha=0;
-//    NSLog(@"combineViewsAndIncrement");
-//    CGPoint returnLocation = changingView.center;
-//    [UIView animateWithDuration:.5
-//                     animations:^{
-//                         //_slidingView.alpha=0;
-//                         changingView.center = baseView.center;
-//                     } completion:^(BOOL finished){
-//                         if (finished) {
-//                             [self incrementImage:baseView];
-//                             changingView.alpha=0;
-//                             changingView.center = returnLocation;
-//                         }
-//                     }];
+    
+    UIImageView* tempView = [[UIImageView alloc] initWithFrame:changingView.frame];
+    [self.view addSubview:tempView];
+    tempView.image = changingView.image;
+    
+    [UIView animateWithDuration:.1
+                     animations:^{
+                         tempView.alpha=0;
+                         tempView.center = baseView.center;
+                     } completion:^(BOOL finished){
+                         if (finished) {
+                             tempView.alpha = 0;
+                         }
+                     }];
+    
 }
 
 - (void) updateBaseView:(UIImageView*) baseView otherView:(UIImageView*) changingView{
+//    baseView.alpha = 1;
+//    baseView.image = changingView.image;
+//    changingView.alpha = 0;
+    changingView.alpha=0;
     baseView.alpha = 1;
     baseView.image = changingView.image;
-    changingView.alpha = 0;
-//    NSLog(@"updateBaseView");
-//    CGPoint returnLocation = changingView.center;
-//    [UIView animateWithDuration:.5
-//                     animations:^{
-//                         //_slidingView.alpha=0;
-//                         changingView.center = baseView.center;
-//                     } completion:^(BOOL finished){
-//                         if (finished) {
-//                             baseView.alpha = 1;
-//                             baseView.image = changingView.image;
-//                             changingView.alpha = 0;
-//                             changingView.center = returnLocation;
-//                         }
-//                     }];
+    
+    UIImageView* tempView = [[UIImageView alloc] initWithFrame:changingView.frame];
+    [self.view addSubview:tempView];
+    tempView.image = changingView.image;
+    
+    [UIView animateWithDuration:.1
+                     animations:^{
+                         tempView.alpha=0;
+                         tempView.center = baseView.center;
+                     } completion:^(BOOL finished){
+                         if (finished) {
+                             tempView.alpha = 0;
+                         }
+                     }];
+    
 }
 
 - (BOOL) isEnabledandEqualTo:(UIImageView*) baseView otherView:(UIImageView*) changingView{
     return (changingView.alpha == 1 && [self image:baseView.image isEqualTo:changingView.image]);
+}
+- (IBAction) continueButtonHandler:(id) sender {
+    _winView.hidden = YES;
+    _continueButton.hidden = YES;
+    _continueButton.enabled=NO;
 }
 - (IBAction)restartButtonHandler:(id)sender {
     //reenable swiping
@@ -361,9 +333,36 @@ NSInteger HighScore;
     [self createRandomSquares];
 }
 
+- (IBAction) instaWIn:(id)sender {
+    //clear board
+    _view11.alpha=1; _view12.alpha=1; _view13.alpha=0; _view14.alpha=0;
+    _view21.alpha=0; _view22.alpha=0; _view23.alpha=0; _view24.alpha=0;
+    _view31.alpha=0; _view32.alpha=0; _view33.alpha=0; _view34.alpha=0;
+    _view41.alpha=0; _view42.alpha=0; _view43.alpha=0; _view44.alpha=0;
+    
+    [_view11 setImage:[UIImage imageNamed:@"1024.png"]];
+    [_view12 setImage:[UIImage imageNamed:@"1024.png"]];
+    [_view13 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view14 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view21 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view22 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view23 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view24 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view31 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view32 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view33 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view34 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view41 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view42 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view43 setImage:[UIImage imageNamed:@"2.png"]];
+    [_view44 setImage:[UIImage imageNamed:@"2.png"]];
+    
+    [_score setText:[NSString stringWithFormat:@"%d", 0]];
+}
+
 - (void) createResetDialog {
     //show game over and restart button
-    NSLog(@"Game Over...resetting");
+//    NSLog(@"Game Over...resetting");
     [self.view bringSubviewToFront:_gameOverView];
     _gameOverView.hidden=0;
     _RestartButton.hidden=0;
@@ -438,7 +437,7 @@ NSInteger HighScore;
 
 - (IBAction)leftSwipeHandler:(id)sender {
     int nothingHappened = 0;//at end, if no tiles changed, this will prevent spawning new tiles
-    NSLog(@"Left Swipe");
+//    NSLog(@"Left Swipe");
     //update column 1 (leftmost column)
     if (_view11.alpha == 1) {
         if ([self isEnabledandEqualTo:_view11 otherView:_view12]){
@@ -456,10 +455,16 @@ NSInteger HighScore;
     }
     else {
         if (_view12.alpha == 1){
+            if ([self isEnabledandEqualTo:_view12 otherView:_view13])
+                [self combineViewsAndIncrement:_view12 otherView:_view13];
+            else if ([self isEnabledandEqualTo:_view12 otherView:_view14])
+            [self combineViewsAndIncrement:_view12 otherView:_view14];
             nothingHappened=1;
             [self updateBaseView:_view11 otherView:_view12];
         }
         else if (_view13.alpha == 1){
+            if ([self isEnabledandEqualTo:_view13 otherView:_view14])
+                [self combineViewsAndIncrement:_view13 otherView:_view14];
             nothingHappened=1;
             [self updateBaseView:_view11 otherView:_view13];
         }
@@ -484,10 +489,16 @@ NSInteger HighScore;
     }
     else {
         if (_view22.alpha == 1){
+            if ([self isEnabledandEqualTo:_view22 otherView:_view23])
+                [self combineViewsAndIncrement:_view22 otherView:_view23];
+            else if ([self isEnabledandEqualTo:_view22 otherView:_view24])
+                [self combineViewsAndIncrement:_view22 otherView:_view24];
             nothingHappened=1;
             [self updateBaseView:_view21 otherView:_view22];
         }
         else  if (_view23.alpha == 1){
+            if ([self isEnabledandEqualTo:_view23 otherView:_view24])
+                [self combineViewsAndIncrement:_view23 otherView:_view24];
             nothingHappened=1;
             [self updateBaseView:_view21 otherView:_view23];
         }
@@ -512,10 +523,16 @@ NSInteger HighScore;
     }
     else {
         if (_view32.alpha == 1){
+            if ([self isEnabledandEqualTo:_view32 otherView:_view33])
+                [self combineViewsAndIncrement:_view32 otherView:_view33];
+            else if ([self isEnabledandEqualTo:_view32 otherView:_view34])
+            [self combineViewsAndIncrement:_view32 otherView:_view34];
             nothingHappened = 1;
             [self updateBaseView:_view31 otherView:_view32];
         }
         else if (_view33.alpha == 1){
+            if ([self isEnabledandEqualTo:_view33 otherView:_view34])
+                [self combineViewsAndIncrement:_view33 otherView:_view34];
             nothingHappened = 1;
             [self updateBaseView:_view31 otherView:_view33];
         }
@@ -540,10 +557,16 @@ NSInteger HighScore;
     }
     else {
         if (_view42.alpha == 1){
+            if ([self isEnabledandEqualTo:_view42 otherView:_view43])
+                [self combineViewsAndIncrement:_view42 otherView:_view43];
+            else if ([self isEnabledandEqualTo:_view42 otherView:_view44])
+                [self combineViewsAndIncrement:_view42 otherView:_view44];
             nothingHappened=1;
             [self updateBaseView:_view41 otherView:_view42];
         }
         else if (_view43.alpha == 1){
+            if ([self isEnabledandEqualTo:_view43 otherView:_view44])
+                [self combineViewsAndIncrement:_view43 otherView:_view44];
             nothingHappened=1;
             [self updateBaseView:_view41 otherView:_view43];
         }
@@ -707,15 +730,13 @@ NSInteger HighScore;
         }
     }
 
-    if(nothingHappened){
-        //[self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
+    if(nothingHappened)
         [self createRandomSquares];
-    }
     [self checkIfNoMoreMoves];
 }
 
 - (IBAction)upSwipeHandler:(id)sender {
-    NSLog(@"Up Swipe");
+//    NSLog(@"Up Swipe");
     int nothingHappened=0;
     //update row 1
     if (_view11.alpha == 1) {
@@ -734,10 +755,16 @@ NSInteger HighScore;
     }
     else {
         if (_view21.alpha == 1){
+            if ([self isEnabledandEqualTo:_view21 otherView:_view31])
+                [self combineViewsAndIncrement:_view21 otherView:_view31];
+            else if ([self isEnabledandEqualTo:_view21 otherView:_view41])
+                [self combineViewsAndIncrement:_view21 otherView:_view41];
             nothingHappened=1;
             [self updateBaseView:_view11 otherView:_view21];
         }
         else if (_view31.alpha == 1){
+            if ([self isEnabledandEqualTo:_view31 otherView:_view41])
+                [self combineViewsAndIncrement:_view31 otherView:_view41];
             nothingHappened=1;
             [self updateBaseView:_view11 otherView:_view31];
         }
@@ -762,10 +789,16 @@ NSInteger HighScore;
     }
     else {
         if (_view22.alpha == 1){
+            if ([self isEnabledandEqualTo:_view22 otherView:_view32])
+                [self combineViewsAndIncrement:_view22 otherView:_view32];
+            else if ([self isEnabledandEqualTo:_view22 otherView:_view42])
+                [self combineViewsAndIncrement:_view22 otherView:_view42];
             nothingHappened=1;
             [self updateBaseView:_view12 otherView:_view22];
         }
         else  if (_view32.alpha == 1){
+            if ([self isEnabledandEqualTo:_view32 otherView:_view42])
+                [self combineViewsAndIncrement:_view32 otherView:_view42];
             nothingHappened=1;
             [self updateBaseView:_view12 otherView:_view32];
         }
@@ -790,10 +823,16 @@ NSInteger HighScore;
     }
     else {
         if (_view23.alpha == 1){
+            if ([self isEnabledandEqualTo:_view23 otherView:_view33])
+                [self combineViewsAndIncrement:_view23 otherView:_view33];
+            else if ([self isEnabledandEqualTo:_view23 otherView:_view43])
+                [self combineViewsAndIncrement:_view23 otherView:_view43];
             nothingHappened=1;
             [self updateBaseView:_view13 otherView:_view23];
         }
         else if (_view33.alpha == 1){
+            if ([self isEnabledandEqualTo:_view33 otherView:_view43])
+                [self combineViewsAndIncrement:_view33 otherView:_view43];
             nothingHappened=1;
             [self updateBaseView:_view13 otherView:_view33];
         }
@@ -818,10 +857,16 @@ NSInteger HighScore;
     }
     else {
         if (_view24.alpha == 1){
+            if ([self isEnabledandEqualTo:_view24 otherView:_view34])
+                [self combineViewsAndIncrement:_view24 otherView:_view34];
+            else if ([self isEnabledandEqualTo:_view24 otherView:_view44])
+                [self combineViewsAndIncrement:_view24 otherView:_view44];
             nothingHappened =1;
             [self updateBaseView:_view14 otherView:_view24];
         }
         else if (_view34.alpha == 1){
+            if ([self isEnabledandEqualTo:_view34 otherView:_view44])
+                [self combineViewsAndIncrement:_view34 otherView:_view44];
             nothingHappened =1;
             [self updateBaseView:_view14 otherView:_view34];
         }
@@ -836,10 +881,12 @@ NSInteger HighScore;
      *******************************************************/
     if (_view21.alpha == 1) {
         if ([self isEnabledandEqualTo:_view21 otherView:_view31]){
+            NSLog(@"here");
             nothingHappened=1;
             [self combineViewsAndIncrement:_view21 otherView:_view31];
         }
-        else if ([self isEnabledandEqualTo:_view21 otherView:_view41] && _view21.alpha == 0){
+        else if ([self isEnabledandEqualTo:_view21 otherView:_view41] && _view31.alpha == 0){
+            NSLog(@"here");
             nothingHappened=1;
             [self combineViewsAndIncrement:_view21 otherView:_view41];
         }
@@ -984,16 +1031,14 @@ NSInteger HighScore;
             [self updateBaseView:_view34 otherView:_view44];
         }
     }
-    if(nothingHappened){
-//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
+    if(nothingHappened)
         [self createRandomSquares];
-    }
 
     [self checkIfNoMoreMoves];
 }
 
 - (IBAction)downSwipeHandler:(id)sender {
-    NSLog(@"Down Swipe");
+//    NSLog(@"Down Swipe");
     int nothingHappened=0;
     if (_view41.alpha == 1) {
         if ([self isEnabledandEqualTo:_view41 otherView:_view31]){
@@ -1011,10 +1056,16 @@ NSInteger HighScore;
     }
     else {
         if (_view31.alpha == 1){
+            if ([self isEnabledandEqualTo:_view31 otherView:_view21])
+                [self combineViewsAndIncrement:_view31 otherView:_view21];
+            else if ([self isEnabledandEqualTo:_view31 otherView:_view11])
+                [self combineViewsAndIncrement:_view31 otherView:_view11];
             nothingHappened=1;
             [self updateBaseView:_view41 otherView:_view31];
         }
         else if (_view21.alpha == 1){
+            if ([self isEnabledandEqualTo:_view21 otherView:_view11])
+                [self combineViewsAndIncrement:_view21 otherView:_view11];
             nothingHappened=1;
             [self updateBaseView:_view41 otherView:_view21];
         }
@@ -1039,10 +1090,16 @@ NSInteger HighScore;
     }
     else {
         if (_view32.alpha == 1){
+            if ([self isEnabledandEqualTo:_view32 otherView:_view22])
+                [self combineViewsAndIncrement:_view32 otherView:_view22];
+            else if ([self isEnabledandEqualTo:_view32 otherView:_view12])
+                [self combineViewsAndIncrement:_view32 otherView:_view12];
             nothingHappened=1;
             [self updateBaseView:_view42 otherView:_view32];
         }
         else  if (_view22.alpha == 1){
+            if ([self isEnabledandEqualTo:_view22 otherView:_view12])
+                [self combineViewsAndIncrement:_view22 otherView:_view12];
             nothingHappened=1;
             [self updateBaseView:_view42 otherView:_view22];
         }
@@ -1067,10 +1124,16 @@ NSInteger HighScore;
     }
     else {
         if (_view33.alpha == 1){
+            if ([self isEnabledandEqualTo:_view33 otherView:_view23])
+                [self combineViewsAndIncrement:_view33 otherView:_view23];
+            else if ([self isEnabledandEqualTo:_view33 otherView:_view13])
+                [self combineViewsAndIncrement:_view33 otherView:_view13];
             nothingHappened=1;
             [self updateBaseView:_view43 otherView:_view33];
         }
         else if (_view23.alpha == 1){
+            if ([self isEnabledandEqualTo:_view23 otherView:_view13])
+                [self combineViewsAndIncrement:_view23 otherView:_view13];
             nothingHappened=1;
             [self updateBaseView:_view43 otherView:_view23];
         }
@@ -1095,10 +1158,16 @@ NSInteger HighScore;
     }
     else {
         if (_view34.alpha == 1){
+            if ([self isEnabledandEqualTo:_view34 otherView:_view24])
+                [self combineViewsAndIncrement:_view34 otherView:_view24];
+            else if ([self isEnabledandEqualTo:_view34 otherView:_view14])
+                [self combineViewsAndIncrement:_view34 otherView:_view14];
             nothingHappened =1;
             [self updateBaseView:_view44 otherView:_view34];
         }
         else if (_view24.alpha == 1){
+            if ([self isEnabledandEqualTo:_view24 otherView:_view14])
+                [self combineViewsAndIncrement:_view24 otherView:_view14];
             nothingHappened =1;
             [self updateBaseView:_view44 otherView:_view24];
         }
@@ -1261,15 +1330,13 @@ NSInteger HighScore;
             [self updateBaseView:_view24 otherView:_view14];
         }
     }
-    if(nothingHappened){
-//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
+    if(nothingHappened)
         [self createRandomSquares];
-    }
     [self checkIfNoMoreMoves];
 }
 
 - (IBAction)rightSwipeHandler:(id)sender {
-    NSLog(@"Right Swipe");
+//    NSLog(@"Right Swipe");
     int nothingHappened = 0;//at end, if no tiles changed, this will prevent spawning new tiles
     //update column 4 (leftmost column)
     if (_view14.alpha == 1) {
@@ -1288,10 +1355,16 @@ NSInteger HighScore;
     }
     else {
         if (_view13.alpha == 1){
+            if ([self isEnabledandEqualTo:_view13 otherView:_view12])
+                [self combineViewsAndIncrement:_view13 otherView:_view12];
+            else if ([self isEnabledandEqualTo:_view13 otherView:_view11])
+                [self combineViewsAndIncrement:_view13 otherView:_view11];
             nothingHappened=1;
             [self updateBaseView:_view14 otherView:_view13];
         }
         else if (_view12.alpha == 1){
+            if ([self isEnabledandEqualTo:_view12 otherView:_view11])
+                [self combineViewsAndIncrement:_view12 otherView:_view11];
             nothingHappened=1;
             [self updateBaseView:_view14 otherView:_view12];
         }
@@ -1316,10 +1389,16 @@ NSInteger HighScore;
     }
     else {
         if (_view23.alpha == 1){
+            if ([self isEnabledandEqualTo:_view23 otherView:_view22])
+                [self combineViewsAndIncrement:_view23 otherView:_view22];
+            else if ([self isEnabledandEqualTo:_view23 otherView:_view21])
+                [self combineViewsAndIncrement:_view23 otherView:_view21];
             nothingHappened=1;
             [self updateBaseView:_view24 otherView:_view23];
         }
         else  if (_view22.alpha == 1){
+            if ([self isEnabledandEqualTo:_view22 otherView:_view21])
+                [self combineViewsAndIncrement:_view22 otherView:_view21];
             nothingHappened=1;
             [self updateBaseView:_view24 otherView:_view22];
         }
@@ -1344,10 +1423,16 @@ NSInteger HighScore;
     }
     else {
         if (_view33.alpha == 1){
+            if ([self isEnabledandEqualTo:_view33 otherView:_view32])
+                [self combineViewsAndIncrement:_view33 otherView:_view32];
+            else if ([self isEnabledandEqualTo:_view33 otherView:_view31])
+                [self combineViewsAndIncrement:_view33 otherView:_view31];
             nothingHappened = 1;
             [self updateBaseView:_view34 otherView:_view33];
         }
         else if (_view32.alpha == 1){
+            if ([self isEnabledandEqualTo:_view32 otherView:_view31])
+                [self combineViewsAndIncrement:_view32 otherView:_view31];
             nothingHappened = 1;
             [self updateBaseView:_view34 otherView:_view32];
         }
@@ -1372,10 +1457,16 @@ NSInteger HighScore;
     }
     else {
         if (_view43.alpha == 1){
+            if ([self isEnabledandEqualTo:_view43 otherView:_view42])
+                [self combineViewsAndIncrement:_view43 otherView:_view42];
+            else if ([self isEnabledandEqualTo:_view43 otherView:_view41])
+                [self combineViewsAndIncrement:_view43 otherView:_view41];
             nothingHappened=1;
             [self updateBaseView:_view44 otherView:_view43];
         }
         else if (_view42.alpha == 1){
+            if ([self isEnabledandEqualTo:_view42 otherView:_view41])
+                [self combineViewsAndIncrement:_view42 otherView:_view41];
             nothingHappened=1;
             [self updateBaseView:_view44 otherView:_view42];
         }
@@ -1539,10 +1630,8 @@ NSInteger HighScore;
         }
     }
     
-    if(nothingHappened){
-//        [self performSelector:@selector(createRandomSquares) withObject:self afterDelay:2];
+    if(nothingHappened)
         [self createRandomSquares];
-    }
     [self checkIfNoMoreMoves];
 }
 
